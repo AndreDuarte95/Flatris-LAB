@@ -1,0 +1,30 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    rm -rf node_modules package-lock.json
+    npm cache clean --force
+  displayName: 'Clean cache'
+
+- script: |
+    npm install -g webpack@5.88.2
+    npm install --legacy-peer-deps
+  displayName: 'Update Webpack and Install Packages'
+
+- script: |
+    npm run build
+  displayName: 'Build Application'
