@@ -21,10 +21,10 @@ steps:
   displayName: 'Clean cache'
 
 - script: |
-    npm install -g webpack@5.88.2
     npm install --legacy-peer-deps
-  displayName: 'Update Webpack and Install Packages'
+  displayName: 'Install Packages'
 
 - script: |
+    export NODE_OPTIONS=--openssl-legacy-provider
     npm run build
   displayName: 'Build Application'
